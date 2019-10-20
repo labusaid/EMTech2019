@@ -18,7 +18,6 @@ function App() {
           <Router>
               <NavigationBar />
 
-              <Sidebar />
               <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/about" component={About} />
@@ -26,6 +25,7 @@ function App() {
                   <Route path="/Stoked" component={Stoked} />
                   <Route component={NoMatch} />
               </Switch>
+              <Sidebar />
           </Router>
       </React.Fragment>
   );

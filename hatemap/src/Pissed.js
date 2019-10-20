@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import HeatMap from "./components/heatmap";
 const GridWrapper = styled.div`
   display: grid;
   grid-gap: 10px;
@@ -11,6 +12,6 @@ const GridWrapper = styled.div`
 `;
 export const Pissed = () => (
     <GridWrapper>
-        <p>Pissed</p>
+        <HeatMap className="map" tone="false"/>
     </GridWrapper>
-)
+);
