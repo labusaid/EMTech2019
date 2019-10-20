@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 
+//array of heatmap points
+var heatPoints = [];
+//Function to add a point to heatmap
+function addTweetPoint(lat, lng, weight) {
+    heatPoints.push({lat: lat, lng: lng, weight: weight})
+}
+
+//Heatmap component
 class HeatMap extends Component {
     static defaultProps = {
         center: {
@@ -14,23 +22,27 @@ class HeatMap extends Component {
         super(props);
         this.state = {
             heatmapVisible: true,
-            heatmapPoints: [
-                {lat: 32.6, lng: -99.2},
-                {lat: 32.55, lng: -99}
-            ]
+            heatmapPoints: heatPoints,
         }
     }
 
+    //Code run on render
     render() {
         //Calc HeatMap
         const heatMapData = {
             positions: this.state.heatmapPoints,
             options: {
                 radius: 50,
-                opacity: 0.6
+                opacity: 0.5
             }
         };
 
+        addTweetPoint(33.0,-99.2,6);
+        addTweetPoint(32.5,-99.2,1);
+        addTweetPoint(32.0,-99.2,3);
+        addTweetPoint(31.5,-99.2,20);
+
+        //Log State
         console.log(this.state);
 
         return (
@@ -49,4 +61,5 @@ class HeatMap extends Component {
     }
 }
 
+//Export
 export default HeatMap;
