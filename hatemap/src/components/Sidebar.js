@@ -40,6 +40,12 @@ class SideNav extends React.Component {
                     css: 'fas fa-angry',
                     key: 3
                 },
+                {
+                    path: '/Tweets',
+                    name: 'Tweets',
+                    css: 'fab fa-twitter',
+                    key: 4
+                },
             ]
         }
 
