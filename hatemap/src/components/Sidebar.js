@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from "axios";
 
 import styled from "styled-components";
 
@@ -46,9 +47,26 @@ class SideNav extends React.Component {
                     css: 'fab fa-twitter',
                     key: 4
                 },
-            ]
+            ],
+            locations: '',
+            keyword: ''
+        };
+
+
         }
 
+        setLocationsOnServer(){
+            // Axios.get('http://localhost:3001/setlocations?locations=')
+            //     .then(response => {
+            //
+            // });
+        }
+
+    changeLocationText(event){
+        this.setState({
+           locations: event.target.value
+        });
+        console.log('locations set to: ' + event.target.value);
     }
 
     onItemClick = (path) => {
@@ -79,7 +97,7 @@ class NavItem extends React.Component {
     handleClick = () => {
         const { path, onItemClick } = this.props;
         onItemClick(path);
-    }
+    };
 
     render() {
         const { active } = this.props;

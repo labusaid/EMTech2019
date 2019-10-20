@@ -12,7 +12,6 @@ import { Tweets } from './Tweets';
 import { NoMatch } from './NoMatch';
 import Sidebar from './components/Sidebar';
 
-
 function App() {
   return (
       <React.Fragment>

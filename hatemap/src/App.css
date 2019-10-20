@@ -39,6 +39,7 @@ padding: 0;
 
  .home-page-button{
      transform: translate(208pt, -2000%);
+     margin-right: 10pt;
  }
 
  .map{

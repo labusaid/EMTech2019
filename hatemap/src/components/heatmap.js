@@ -13,8 +13,8 @@ function addTweetData(comp, location, keyword){
     Axios.get('http://localhost:3001/getaveragetone?location=' + location + '&keyword=' + keyword)
         .then(response => {
             console.log(response);
-            var toneCount = comp.props.tone == "true" ? response.data.positive_count : response.data.negative_count;
-            var toneAverage = comp.props.tone == "true" ? response.data.positive_average : response.data.negative_average;
+            var toneCount = comp.props.tone === "true" ? response.data.positive_count : response.data.negative_count;
+            var toneAverage = comp.props.tone === "true" ? response.data.positive_average : response.data.negative_average;
             console.log('tone average: ' + toneAverage);
             console.log('tone count: ' + toneCount);
             var weight = toneAverage * toneCount;
@@ -53,9 +53,24 @@ class HeatMap extends Component {
         console.log('map tone: '+ props.tone);
 
         heatPoints = [];
+        this.updateHeatmap();
+    }
 
-        addTweetData(this, 'losangeles', 'trump');
-        addTweetData(this, 'oklahomacity', 'trump');
+    updateHeatmap(){
+        console.log('update heatmap');
+        var currentKeyword = '';
+        var currentLocations = [];
+        Axios.get('http://localhost:3001/getcurrentdata').then(result => {
+            console.log(result);
+            currentKeyword = result.data.keyword;
+            currentLocations = result.data.locations_array;
+
+            for(var location in currentLocations){
+                addTweetData(this, currentLocations[location], currentKeyword);
+            }
+        });
+
+
     }
 
     //Code run on render

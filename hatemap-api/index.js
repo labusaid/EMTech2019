@@ -11,6 +11,7 @@ var port = 3001;
 
 var cors = require('cors')
 
+var currentKeyword;
 var locations = ['oklahomacity', 'losangeles'];
 
 const ToneAnalyzerV3 = require('ibm-watson/tone-analyzer/v3');
@@ -34,9 +35,22 @@ app.get('/', (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true); // If 
 });
 
+app.get('/setlocations', (req, res) => {
+  var locationString = req.query.locations;
+  locations = locationString.split(',');
+  console.log('locations set: ' + locationString);
+  res.end('success');
+});
+
+app.get('/setkeyword', (req,res) => {
+  currentKeyword = req.query.keyword;
+  console.log('keyword set: ' + currentKeyword);
+  res.end('success');
+});
+
 async function getTweets(keyword, limit) {
   if(!limit){
-    limit = 80;
+    limit = 70;
   }
   console.log('getting tweets with keyword: ' + keyword);
   var cityData = [];
@@ -54,6 +68,13 @@ async function getTweets(keyword, limit) {
 
   return cityData;
 }
+
+app.get('/getcurrentdata', (req, res) => {
+  res.send(JSON.stringify({
+    keyword: currentKeyword,
+    locations_array: locations
+  }));
+});
 
 async function getTweetsFromLocation(keyword, location, limit){
   var fileName = location +'-tweets.json';
@@ -165,8 +186,8 @@ app.get('/getaveragetone', (req, res) => {
     location: req.query.location,
     positive_count: positiveCount,
     negative_count: negativeCount,
-    positive_average: positiveValues / positiveCount,
-    negative_average: negativeValues / negativeCount
+    positive_average: Math.pow(((positiveValues / positiveCount)+1), 2),
+    negative_average: Math.pow(((negativeValues / negativeCount)+1), 2)
   }));
 });
 
