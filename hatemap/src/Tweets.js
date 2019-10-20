@@ -9,8 +9,8 @@ const GridWrapper = styled.div`
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: minmax(25px, auto);
 `;
-export const Pissed = () => (
+export const Tweets = () => (
     <GridWrapper>
-        <p>Pissed</p>
+        <p>Tweets</p>
     </GridWrapper>
 )
